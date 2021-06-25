@@ -1,4 +1,4 @@
-const BASE_URL = "https://example-badge.herokuapp.com/";
+const BASE_URL = "https://example-badge.herokuapp.com";
 
 class Http {
     static instance = new Http();
@@ -41,7 +41,7 @@ class Http {
     };
     put = async (badgeId, body) =>{
         try {
-            let request = await fetch(`${BASE_URL}_id:${badgeId}/`,{
+            let request = await fetch(`${BASE_URL}/_id:${badgeId}/`,{
             method: 'PUT',
             body: JSON.stringify(body),
             });
@@ -54,7 +54,7 @@ class Http {
     };
     remove = async badgeId =>{
         try {
-            let request = await fetch(`${BASE_URL}_id:${badgeId}/`,{
+            let request = await fetch(`${BASE_URL}/_id:${badgeId}/`,{
                 method: 'DELETE',
             });
             let response = await request.json();

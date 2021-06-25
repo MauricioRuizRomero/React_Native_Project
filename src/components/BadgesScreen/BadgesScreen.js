@@ -7,7 +7,7 @@ import Http from '../../libs/http';
 class BadgesScreen extends React.Component {
     state = {
         loading: false,
-        badge: [],
+        badges: [],
     };
 
     componentDidMount(){
