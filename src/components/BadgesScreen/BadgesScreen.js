@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, ActivityIndicator, Text, Flatlist, StyleSheet } from 'react-native';
-import BadgesItem from './BadgesItem';
+import { View, ActivityIndicator, Text, FlatList, StyleSheet } from 'react-native';
+import BadgesItem from '../../components/BadgesScreen/BadgesItem';
 import Colors from '../../res/Colors';
 import Http from '../../libs/http';
 
@@ -23,19 +23,20 @@ class BadgesScreen extends React.Component {
 
     render(){
         const {badges, loading} = this.state;
+
         return(
             <View style={[styles.container, styles.horizontal]}>
                 {loading ? (
                     <ActivityIndicator
-                    style={styles.loader}
-                     color="#000000aa" 
+                     style={styles.loader}
+                     color="#43ff0D" 
                      size="large" 
                      />
                 ) : null}
-                <Flatlist 
-                style={styles.list}
+                <FlatList
+                 style={styles.list}
                  data={badges} 
-                 renderItem={({item}) => <BadgesItem key={item._id} item={item} />}
+                 renderItem={ ({item}) => <BadgesItem key={item._id} item={item} />}
                 />     
             </View>
         );
