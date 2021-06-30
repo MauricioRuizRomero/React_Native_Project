@@ -2,6 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import BadgesLanding from '../BadgesLanding/BadgesLanding';
 import Colors from '../../res/Colors';
+import BadgesDetail from '../BadgesDetail/BadgesDetail';
 import BadgesScreen from './BadgesScreen';
 
 const Stack = createStackNavigator();
@@ -22,6 +23,7 @@ const BadgesStack = () => {
             options={{ headerShown: false} }
             />
         <Stack.Screen name="Badges" component={BadgesScreen} />
+        <Stack.Screen name="BadgesDetail" component={BadgesDetail} />
         </Stack.Navigator>
     );
 };
