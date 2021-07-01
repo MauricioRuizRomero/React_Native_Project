@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ActivityIndicator, Text, FlatList, StyleSheet } from 'react-native';
+import { View, ActivityIndicator, Text, FlatList, StyleSheet, Alert } from 'react-native';
 import BadgesItem from '../../components/BadgesScreen/BadgesItem';
 import Colors from '../../res/Colors';
 import Http from '../../libs/http';
@@ -7,36 +7,72 @@ import Http from '../../libs/http';
 class BadgesScreen extends React.Component {
     state = {
         loading: false,
-        badges: [],
+        badges: undefined,
     };
 
     componentDidMount(){
         this.fetchdata();
+        this.setFetchInterval();
     }
+
+    setFetchInterval= () =>{
+        this.interval = setInterval(this.fetchdata, 3000);
+    };
 
     fetchdata = async () => {
         this.setState({loading:true});
         let response = await Http.instance.get_all();
-        response = response.reverse();
         this.setState({loading: false, badges: response});
     };
 
     handlePress = item =>{
         this.props.navigation.navigate('BadgesDetail', {item });
-    }
+    };
 
+    handleEdit = item => {
+        this.props.navigation.navigate('BadgesEdit', {item});
+    };
+
+    handleDelete= item => {
+        Alert.alert('Are you sure you want to delete this badge?',
+        `Do you really want to delete ${item.name}'s badge?\n\nThis process cannot be undone.`,
+        [
+            {
+                text:'Cancel',
+                style: 'cancel',
+            },
+            {
+                text: 'Delete',
+                onPress: async () => {
+                    this.setState({loading: true, badges:undefined});
+                    await Http.instance.remove(item._id);
+                    this.fetchdata();
+                },
+                style:'destructive',
+            },
+        ],
+        {
+            cancelable: true,
+        },
+        );
+    };
+
+    componentWillUnmount () {
+        clearInterval(this.interval);
+    }
     render(){
         const {badges, loading} = this.state;
 
+        if(loading===true && !badges) {
+            return(
+        <View style={[styles.container, styles.horizontal]}>
+                <ActivityIndicator style={styles.loader} color="#43ff0D" size="large" />
+        </View>
+        );
+    } 
         return(
             <View style={[styles.container, styles.horizontal]}>
-                {loading ? (
-                    <ActivityIndicator
-                     style={styles.loader}
-                     color="#43ff0D" 
-                     size="large" 
-                     />
-                ) : null}
+                
                 <FlatList
                  style={styles.list}
                  data={badges} 
@@ -45,8 +81,11 @@ class BadgesScreen extends React.Component {
                  key={item._id} 
                  item={item} 
                  onPress={() => this.handlePress(item)} 
+                 onEdit={() => this.handleEdit(item)}
+                 onDelete={() => this.handleDelete(item)}
                      />
                 )}
+                keyExtractor={(item, index)=> index.toString()}
                 />     
             </View>
         );
