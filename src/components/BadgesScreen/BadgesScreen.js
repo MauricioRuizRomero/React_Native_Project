@@ -13,7 +13,7 @@ class BadgesScreen extends React.Component {
     componentDidMount(){
         this.fetchdata();
         this.setFetchInterval();
-    }
+    };
 
     setFetchInterval= () =>{
         this.interval = setInterval(this.fetchdata, 3000);
@@ -59,7 +59,7 @@ class BadgesScreen extends React.Component {
 
     componentWillUnmount () {
         clearInterval(this.interval);
-    }
+    };
     render(){
         const {badges, loading} = this.state;
 

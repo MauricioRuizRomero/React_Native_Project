@@ -34,7 +34,7 @@ class Http {
             let response = await request.json();
             return response;
         } catch (err) {
-            console.log('http get method err', err);
+            console.log('http post method err', err);
             throw Error(err);
         }
     
@@ -43,12 +43,16 @@ class Http {
         try {
             let request = await fetch(`${BASE_URL}/_id:${badgeId}/`,{
             method: 'PUT',
+            headers:{
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+            },
             body: JSON.stringify(body),
             });
             let response = await request.json();
             return response;
         } catch (err) {
-            console.log('http get method err', err);
+            console.log('http put method err', err);
             throw Error(err);
         }
     };
@@ -60,7 +64,7 @@ class Http {
             let response = await request.json();
             return response;
         } catch (err) {
-            console.log('http get method err', err);
+            console.log('http delete method err', err);
             throw Error(err);
         }
     };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpactiy, Image, ActivityIndicator, TextInput } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, ActivityIndicator, TextInput } from 'react-native';
 import Colors from '../../res/Colors';
 import Http from '../../libs/http';
 
@@ -20,6 +20,11 @@ class BadgesEdit extends React.Component{
         this.props.navigation.setOptions({title: `${item.name}`});
     };
 
+   handleSubmit = async () => {
+     await Http.instance.put(this.state.badge._id, this.state.form);
+       this.props.navigation.replace('Badges');
+   };
+
     render(){
 
         const {badge, loading} = this.state;
@@ -34,8 +39,91 @@ class BadgesEdit extends React.Component{
         return(
             <ScrollView style={styles.container}>
                 <View style={styles.content}>
-                    <Text>{badge.name}</Text>
-                    <TextInput style={styles.input} placeholder="This is an input "/>
+                    <Image 
+                    style={styles.header} 
+                    source={{uri: `${badge.header_img_url}`}}
+                    />
+                    <Image 
+                    style={styles.profileImage} 
+                    source={{uri: `${badge.profile_picture_url}`}}
+                    />
+                    <View style={styles.form}>
+                        <Text style={styles.inputText}>Name</Text>
+                        <TextInput 
+                        style={styles.input} 
+                        placeholder= {`${badge.name}`} 
+                        onChangeText= {text => {
+                            this.setState( prevState => {
+                                let form = Object.assign({}, prevState.form);
+                                form.name = text;
+                                return {form};
+                            });
+                        }} 
+                        />
+                        <Text style={styles.inputText}>Age</Text>
+                        <TextInput 
+                        style={styles.input} 
+                        placeholder= {`${badge.age}`} 
+                        onChangeText= { text => {
+                            this.setState( prevState => {
+                                let form = Object.assign({}, prevState.form);
+                                form.age = text;
+                                return {form};
+                            });
+                        }} 
+                        />
+                        <Text style={styles.inputText}>City</Text>
+                        <TextInput 
+                        style={styles.input} 
+                        placeholder= {`${badge.city}`} 
+                        onChangeText= {text => {
+                            this.setState(prevState => {
+                                let form = Object.assign({}, prevState.form);
+                                form.city = text;
+                                return {form};
+                            });
+                        }} 
+                        />
+                        <Text style={styles.inputText}>Life</Text>
+                        <TextInput 
+                        style={styles.input} 
+                        placeholder= {`${badge.life}`} 
+                        onChangeText= {text => {
+                            this.setState(prevState => {
+                                let form = Object.assign({}, prevState.form);
+                                form.life = text;
+                                return {form};
+                            });
+                        }} 
+                        />
+                        <Text style={styles.inputText}>Magic Power</Text>
+                        <TextInput 
+                        style={styles.input} 
+                        placeholder= {`${badge.magic}`} 
+                        onChangeText= {text => {
+                            this.setState(prevState => {
+                                let form = Object.assign({}, prevState.form);
+                                form.magic = text;
+                                return {form};
+                            });
+                        }} 
+                        />
+                        <Text style={styles.inputText}>Strenght</Text>
+                        <TextInput 
+                        style={styles.input} 
+                        placeholder= {`${badge.strenght}`} 
+                        onChangeText= {text => {
+                            this.setState(prevState => {
+                                let form = Object.assign({}, prevState.form);
+                                form.strenght = text;
+                                return {form};
+                            });
+                        }} 
+                        />
+                        <TouchableOpacity style={styles.submit} onPress={this.handleSubmit}>
+                            <Text style={styles.submitText}>Save</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </ScrollView>
         );
@@ -61,6 +149,26 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.white,
         borderRadius: 20,
     },
+    form: {
+        paddingHorizontal: 20,
+    },
+    header: {
+        width: '100%',
+        height: 200,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+    },
+    profileImage: {
+        width: 150,
+        height:150,
+        resizeMode: 'cover',
+        borderRadius: 75,
+        borderWidth: 3,
+        borderColor: Colors.white,
+        position: 'absolute',
+        top: 25,
+        left: '28%',
+    },
     input: {
         paddingVertical: 5,
         paddingHorizontal: 12,
@@ -68,6 +176,26 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderColor: Colors.zircon,
     },
+    inputText:{
+        fontSize: 15,
+        marginTop: 10,
+        marginBottom: 1,
+        marginLeft: 10,
+    },
+    submit: {
+        marginVertical: 30,
+        width: '30%',
+        borderWidth: 1,
+        borderColor: Colors.zircon,
+        borderRadius: 10,
+        backgroundColor: Colors.charade,
+    },
+    submitText: {
+        fontSize: 16,
+        margin: 5,
+        color: Colors.white,
+        textAlign: 'center',
+    }
 });
 
 
