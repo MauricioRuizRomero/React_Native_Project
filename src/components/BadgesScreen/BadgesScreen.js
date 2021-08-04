@@ -1,18 +1,33 @@
 import React from 'react';
-import { View, ActivityIndicator, Text, FlatList, StyleSheet, Alert } from 'react-native';
+import { View, ActivityIndicator, Text, FlatList, StyleSheet, Alert, StatusBar } from 'react-native';
 import BadgesItem from '../../components/BadgesScreen/BadgesItem';
 import Colors from '../../res/Colors';
 import Http from '../../libs/http';
+import BadgesSearch from './BadgesSearch';
 
 class BadgesScreen extends React.Component {
     state = {
         loading: false,
         badges: undefined,
+        badgesCopy: undefined,
     };
 
     componentDidMount(){
         this.fetchdata();
-        this.setFetchInterval();
+        this.focusEvent();
+        this.blurEvent();
+    };
+
+    focusEvent = () =>{
+        this.focusListener = this.props.navigation.addListener('focus', () => {
+            this.setFetchInterval();
+        });
+    };
+
+    blurEvent = () =>{
+        this.blurListener = this.props.navigation.addListener('blur', () => {
+            clearInterval(this.interval);
+        });
     };
 
     setFetchInterval= () =>{
@@ -22,7 +37,7 @@ class BadgesScreen extends React.Component {
     fetchdata = async () => {
         this.setState({loading:true});
         let response = await Http.instance.get_all();
-        this.setState({loading: false, badges: response});
+        this.setState({loading: false, badges: response, badgesCopy: response});
     };
 
     handlePress = item =>{
@@ -31,6 +46,21 @@ class BadgesScreen extends React.Component {
 
     handleEdit = item => {
         this.props.navigation.navigate('BadgesEdit', {item});
+    }; 
+    
+    handleChange = query =>{
+        const {badgesCopy} = this.state;
+
+        const badgesFiltered = badgesCopy.filter( badge =>{
+            return badge.name.toLowerCase().includes(query.toLowerCase());
+        });
+        this.setState({badges: badgesFiltered});
+
+        if(query){
+            clearInterval(this.interval);
+        }else {
+            this.setFetchInterval();
+        }
     };
 
     handleDelete= item => {
@@ -58,8 +88,11 @@ class BadgesScreen extends React.Component {
     };
 
     componentWillUnmount () {
-        clearInterval(this.interval);
+        this.focusListener();
+        this.blurListener();
     };
+
+
     render(){
         const {badges, loading} = this.state;
 
@@ -72,6 +105,8 @@ class BadgesScreen extends React.Component {
     } 
         return(
             <View style={[styles.container, styles.horizontal]}>
+                <StatusBar backgroundColor="transparent" translucent={true} />
+                <BadgesSearch onChange={this.handleChange} />
                 
                 <FlatList
                  style={styles.list}
