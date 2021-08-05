@@ -11,14 +11,14 @@ import {
 import Colors from '../../res/Colors'
 
 
-class BadgesItem extends React.Component{
-    render(){
-        const {item} = this.props;
-        return(
+class BadgesItem extends React.Component {
+    render() {
+        const { item } = this.props;
+        return (
             <View style={styles.container}>
                 <TouchableOpacity onPress={this.props.onPress}>
                     <View style={styles.row}>
-                        <Image style={styles.profile} source={{uri:`${item.profile_picture_url}`}} 
+                        <Image style={styles.profile} source={{ uri: `${item.profile_picture_url}` }}
                         />
                         <View style={styles.userData}>
                             <Text style={styles.nameText}> {item.name} </Text>
@@ -27,18 +27,18 @@ class BadgesItem extends React.Component{
                     </View>
                 </TouchableOpacity>
                 <View style={styles.icons}>
-                   <Pressable onPress={this.props.onEdit}>
-                        <Image 
-                        style={styles.editIcon} 
-                        source={require('../../assets/edit_icon.png')} 
-                        />   
-                    </Pressable> 
+                    <Pressable onPress={this.props.onEdit}>
+                        <Image
+                            style={styles.editIcon}
+                            source={require('../../assets/edit_icon.png')}
+                        />
+                    </Pressable>
                     <Pressable onPress={this.props.onDelete}>
-                        <Image 
-                        style={styles.deleteIcon}
-                        source={require('../../assets/delete_icon.png')} 
-                        />   
-                    </Pressable> 
+                        <Image
+                            style={styles.deleteIcon}
+                            source={require('../../assets/delete_icon.png')}
+                        />
+                    </Pressable>
                 </View>
             </View>
         );
@@ -46,7 +46,7 @@ class BadgesItem extends React.Component{
 }
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         padding: 16,
@@ -74,18 +74,18 @@ const styles = StyleSheet.create({
         color: Colors.white,
     },
     icons: {
-        flex:1,
-        alignItems:'center',
+        flex: 1,
+        alignItems: 'center',
         justifyContent: 'flex-end',
         flexDirection: 'row',
     },
-    editIcon:{
+    editIcon: {
         height: 22,
         width: 22,
         resizeMode: 'cover',
         justifyContent: 'center',
     },
-    deleteIcon:{
+    deleteIcon: {
         marginLeft: 15,
         height: 22,
         width: 22,

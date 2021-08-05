@@ -1,34 +1,34 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image} from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import Colors from '../../res/Colors';
 
 class BadgesDetail extends React.Component {
-    state= {
+    state = {
         badge: {},
     };
 
-    componentDidMount(){
+    componentDidMount() {
         this.getBadge();
     }
 
     getBadge = () => {
-        const {item} = this.props.route.params;
-        this.setState({badge: item});
-        this.props.navigation.setOptions({title: item.name});
+        const { item } = this.props.route.params;
+        this.setState({ badge: item });
+        this.props.navigation.setOptions({ title: item.name });
     };
 
-    render (){
-        const {badge} = this.state;
-        return(
+    render() {
+        const { badge } = this.state;
+        return (
             <View style={styles.container}>
-                <View style= {styles.badge}>
-                    <Image 
-                    style={styles.header} 
-                    source={{uri: `${badge.header_img_url}`}}
+                <View style={styles.badge}>
+                    <Image
+                        style={styles.header}
+                        source={{ uri: `${badge.header_img_url}` }}
                     />
-                    <Image 
-                    style={styles.profileImage}
-                    source={{uri: `${badge.profile_picture_url}`}}
+                    <Image
+                        style={styles.profileImage}
+                        source={{ uri: `${badge.profile_picture_url}` }}
                     />
                     <View style={styles.userInfo}>
                         <Text style={styles.name}>{badge.name}</Text>
@@ -66,18 +66,19 @@ const styles = StyleSheet.create({
     badge: {
         flex: 1,
         margin: 20,
+        marginTop: 45,
         width: '90%',
         height: '90%',
         backgroundColor: Colors.white,
         borderRadius: 25,
     },
-    header:{
+    header: {
         width: '100%',
         height: '40%',
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
     },
-    profileImage:{
+    profileImage: {
         width: 200,
         height: 200,
         resizeMode: 'cover',
@@ -85,31 +86,32 @@ const styles = StyleSheet.create({
         borderWidth: 5,
         borderColor: Colors.white,
         position: 'absolute',
-        top: 150,
+        top: '25%',
         left: '22%',
+
     },
-    userInfo:{
+    userInfo: {
         flexDirection: 'row',
         marginTop: 110,
         justifyContent: 'center',
     },
-    name:{
+    name: {
         fontSize: 28,
         fontWeight: 'bold',
         color: Colors.blackPearl,
     },
-    age:{
+    age: {
         fontSize: 28,
         marginLeft: 20,
         color: Colors.zircon,
     },
-    city:{
+    city: {
         marginTop: 10,
         fontSize: 18,
         textAlign: 'center',
         color: Colors.zircon,
     },
-    data:{
+    data: {
         padding: 20,
         marginTop: 50,
         justifyContent: 'center',
@@ -117,19 +119,19 @@ const styles = StyleSheet.create({
         borderTopWidth: 1,
         borderColor: Colors.zircon,
     },
-    dataColumns:{
+    dataColumns: {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
     },
-    dataInfo:{
+    dataInfo: {
         margin: 20,
         fontSize: 28,
         fontWeight: 'bold',
         marginHorizontal: 25,
         color: Colors.charade,
     },
-    smallText:{
+    smallText: {
         color: Colors.zircon,
     },
 });

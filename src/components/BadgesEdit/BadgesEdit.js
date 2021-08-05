@@ -3,8 +3,8 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, ActivityIn
 import Colors from '../../res/Colors';
 import Http from '../../libs/http';
 
-class BadgesEdit extends React.Component{
-    state={
+class BadgesEdit extends React.Component {
+    state = {
         loading: false,
         badge: {},
         form: {},
@@ -15,110 +15,110 @@ class BadgesEdit extends React.Component{
     }
 
     getBadge = () => {
-        const {item} = this.props.route.params;
-        this.setState({badge: item});
-        this.props.navigation.setOptions({title: `${item.name}`});
+        const { item } = this.props.route.params;
+        this.setState({ badge: item });
+        this.props.navigation.setOptions({ title: `${item.name}` });
     };
 
-   handleSubmit = async () => {
-     await Http.instance.put(this.state.badge._id, this.state.form);
-       this.props.navigation.replace('Badges');
-   };
+    handleSubmit = async () => {
+        await Http.instance.put(this.state.badge._id, this.state.form);
+        this.props.navigation.replace('Badges');
+    };
 
-    render(){
+    render() {
 
-        const {badge, loading} = this.state;
+        const { badge, loading } = this.state;
 
-        if(loading===true) {
-            return(
-        <View style={[styles.container, styles.horizontal]}>
-                <ActivityIndicator style={styles.loader} color="#43ff0D" size="large" />
-        </View>
-        );
-    } 
-        return(
+        if (loading === true) {
+            return (
+                <View style={[styles.container, styles.horizontal]}>
+                    <ActivityIndicator style={styles.loader} color="#43ff0D" size="large" />
+                </View>
+            );
+        }
+        return (
             <ScrollView style={styles.container}>
                 <View style={styles.content}>
-                    <Image 
-                    style={styles.header} 
-                    source={{uri: `${badge.header_img_url}`}}
+                    <Image
+                        style={styles.header}
+                        source={{ uri: `${badge.header_img_url}` }}
                     />
-                    <Image 
-                    style={styles.profileImage} 
-                    source={{uri: `${badge.profile_picture_url}`}}
+                    <Image
+                        style={styles.profileImage}
+                        source={{ uri: `${badge.profile_picture_url}` }}
                     />
                     <View style={styles.form}>
                         <Text style={styles.inputText}>Name</Text>
-                        <TextInput 
-                        style={styles.input} 
-                        placeholder= {`${badge.name}`} 
-                        onChangeText= {text => {
-                            this.setState( prevState => {
-                                let form = Object.assign({}, prevState.form);
-                                form.name = text;
-                                return {form};
-                            });
-                        }} 
+                        <TextInput
+                            style={styles.input}
+                            placeholder={`${badge.name}`}
+                            onChangeText={text => {
+                                this.setState(prevState => {
+                                    let form = Object.assign({}, prevState.form);
+                                    form.name = text;
+                                    return { form };
+                                });
+                            }}
                         />
                         <Text style={styles.inputText}>Age</Text>
-                        <TextInput 
-                        style={styles.input} 
-                        placeholder= {`${badge.age}`} 
-                        onChangeText= { text => {
-                            this.setState( prevState => {
-                                let form = Object.assign({}, prevState.form);
-                                form.age = text;
-                                return {form};
-                            });
-                        }} 
+                        <TextInput
+                            style={styles.input}
+                            placeholder={`${badge.age}`}
+                            onChangeText={text => {
+                                this.setState(prevState => {
+                                    let form = Object.assign({}, prevState.form);
+                                    form.age = text;
+                                    return { form };
+                                });
+                            }}
                         />
                         <Text style={styles.inputText}>City</Text>
-                        <TextInput 
-                        style={styles.input} 
-                        placeholder= {`${badge.city}`} 
-                        onChangeText= {text => {
-                            this.setState(prevState => {
-                                let form = Object.assign({}, prevState.form);
-                                form.city = text;
-                                return {form};
-                            });
-                        }} 
+                        <TextInput
+                            style={styles.input}
+                            placeholder={`${badge.city}`}
+                            onChangeText={text => {
+                                this.setState(prevState => {
+                                    let form = Object.assign({}, prevState.form);
+                                    form.city = text;
+                                    return { form };
+                                });
+                            }}
                         />
                         <Text style={styles.inputText}>Life</Text>
-                        <TextInput 
-                        style={styles.input} 
-                        placeholder= {`${badge.life}`} 
-                        onChangeText= {text => {
-                            this.setState(prevState => {
-                                let form = Object.assign({}, prevState.form);
-                                form.life = text;
-                                return {form};
-                            });
-                        }} 
+                        <TextInput
+                            style={styles.input}
+                            placeholder={`${badge.life}`}
+                            onChangeText={text => {
+                                this.setState(prevState => {
+                                    let form = Object.assign({}, prevState.form);
+                                    form.life = text;
+                                    return { form };
+                                });
+                            }}
                         />
                         <Text style={styles.inputText}>Magic Power</Text>
-                        <TextInput 
-                        style={styles.input} 
-                        placeholder= {`${badge.magic}`} 
-                        onChangeText= {text => {
-                            this.setState(prevState => {
-                                let form = Object.assign({}, prevState.form);
-                                form.magic = text;
-                                return {form};
-                            });
-                        }} 
+                        <TextInput
+                            style={styles.input}
+                            placeholder={`${badge.magic}`}
+                            onChangeText={text => {
+                                this.setState(prevState => {
+                                    let form = Object.assign({}, prevState.form);
+                                    form.magic = text;
+                                    return { form };
+                                });
+                            }}
                         />
                         <Text style={styles.inputText}>Strenght</Text>
-                        <TextInput 
-                        style={styles.input} 
-                        placeholder= {`${badge.strenght}`} 
-                        onChangeText= {text => {
-                            this.setState(prevState => {
-                                let form = Object.assign({}, prevState.form);
-                                form.strenght = text;
-                                return {form};
-                            });
-                        }} 
+                        <TextInput
+                            style={styles.input}
+                            placeholder={`${badge.strenght}`}
+                            onChangeText={text => {
+                                this.setState(prevState => {
+                                    let form = Object.assign({}, prevState.form);
+                                    form.strenght = text;
+                                    return { form };
+                                });
+                            }}
                         />
                         <TouchableOpacity style={styles.submit} onPress={this.handleSubmit}>
                             <Text style={styles.submitText}>Save</Text>
@@ -139,11 +139,11 @@ const styles = StyleSheet.create({
     horizontal: {
         justifyContent: 'space-around',
         alignItems: 'center',
-
     },
     content: {
         flex: 1,
         margin: 20,
+        marginTop: 45,
         width: '90%',
         height: 'auto',
         backgroundColor: Colors.white,
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     },
     profileImage: {
         width: 150,
-        height:150,
+        height: 150,
         resizeMode: 'cover',
         borderRadius: 75,
         borderWidth: 3,
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderColor: Colors.zircon,
     },
-    inputText:{
+    inputText: {
         fontSize: 15,
         marginTop: 10,
         marginBottom: 1,

@@ -3,16 +3,16 @@ import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, StatusBar } 
 import Colors from '../../res/Colors'
 
 const imageBackground = {
-    uri:'https://cdn.wallpapersafari.com/6/71/vC3I6O.jpg'
+    uri: 'https://cdn.wallpapersafari.com/6/71/vC3I6O.jpg'
 };
 
 class BadgesLanding extends React.Component {
     handlePress = () => {
-        this.props.navigation.replace('Badges');
+        this.props.navigation.replace('BadgesTabNavigator');
     };
-    
-    render(){
-        return(
+
+    render() {
+        return (
             <View style={styles.container}>
                 <StatusBar backgroundColor="transparent" translucent={true} />
                 <ImageBackground source={imageBackground} style={styles.image}>
@@ -31,14 +31,14 @@ class BadgesLanding extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    container:{
-        flex:1,
+    container: {
+        flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
     },
-    layerColor:{
-        flex:2,
-        backgroundColor:'#000000aa',
+    layerColor: {
+        flex: 2,
+        backgroundColor: '#000000aa',
         justifyContent: 'center',
         alignItems: 'center',
     },

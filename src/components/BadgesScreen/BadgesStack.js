@@ -12,21 +12,17 @@ const BadgesStack = () => {
     return (
         <Stack.Navigator
             screenOptions={{
-                headerShown:false,
-                headerStyle:{
+                headerShown: false,
+                headerStyle: {
                     backgroundColor: Colors.blackPearl,
                     shadowColor: Colors.blackPearl,
                 },
                 headerTintColor: Colors.white,
             }}>
-            <Stack.Screen
-             name="Landing" component={BadgesLanding} 
-             component={BadgesLanding}
-            options={{ headerShown: false} }
-            />
-        <Stack.Screen name="Badges" component={BadgesScreen} />
-        <Stack.Screen name="BadgesDetail" component={BadgesDetail} />
-        <Stack.Screen name="BadgesEdit" component={BadgesEdit} />
+
+            <Stack.Screen name="Badges" component={BadgesScreen} />
+            <Stack.Screen name="BadgesDetail" component={BadgesDetail} />
+            <Stack.Screen name="BadgesEdit" component={BadgesEdit} />
         </Stack.Navigator>
     );
 };
