@@ -2,6 +2,7 @@ import React from 'react';
 import { Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import BadgesStack from './BadgesStack.js'
+import FavoritesStack from '../Favorites/FavoritesStack.js';
 import Colors from '../../res/Colors.js';
 
 const Tabs = createBottomTabNavigator();
@@ -18,19 +19,7 @@ const BadgesTabNavigator = () => {
             }}
         >
             <Tabs.Screen
-                name="Edit"
-                component={BadgesStack}
-                options={{
-                    tabBarIcon: ({ size, color }) => (
-                        <Image
-                            style={{ tintColor: color, width: size, height: size }}
-                            source={require('../../assets/edit_icon.png')}
-                        />
-                    ),
-                }}
-            />
-            <Tabs.Screen
-                name="Badges"
+                name="Badge"
                 component={BadgesStack}
                 options={{
                     tabBarIcon: ({ size, color }) => (
@@ -42,13 +31,13 @@ const BadgesTabNavigator = () => {
                 }}
             />
             <Tabs.Screen
-                name="Delete"
-                component={BadgesStack}
+                name="Favorites"
+                component={FavoritesStack}
                 options={{
                     tabBarIcon: ({ size, color }) => (
                         <Image
                             style={{ tintColor: color, width: size, height: size }}
-                            source={require('../../assets/delete_icon.png')}
+                            source={require('../../assets/notFavorite.png')}
                         />
                     ),
                 }}

@@ -1,10 +1,12 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Colors from '../../res/Colors';
+import Storage from '../../libs/storage';
 
 class BadgesDetail extends React.Component {
     state = {
         badge: {},
+        isFavorite: false,
     };
 
     componentDidMount() {
@@ -13,12 +15,51 @@ class BadgesDetail extends React.Component {
 
     getBadge = () => {
         const { item } = this.props.route.params;
-        this.setState({ badge: item });
+        this.setState({ badge: item }, () =>{
+            this.getFavorite();
+        });
         this.props.navigation.setOptions({ title: item.name });
     };
 
+    getFavorite = async () =>{
+        try{
+            const key = `favorite-${this.state.badge._id}`;
+            const favoriteStr = await Storage.instance.get(key);
+            if(favoriteStr != null){
+                this.setState({isFavorite: true})
+            }
+        }catch(err){
+            console.log('Get favorite err', err);
+        }
+    }
+
+    toggleFavorite = () => {
+        if(this.state.isFavorite){
+            this.removeFavorite();
+        }else{
+            this.addFavorite();
+        }
+    };
+
+    addFavorite = async () => {
+        const badge = JSON.stringify(this.state.badge);
+        const key = `favorite-${this.state.badge._id}`;
+
+        const stored = await Storage.instance.store(key, badge);
+
+        if(stored){
+            this.setState({isFavorite: true});
+        }
+    };
+
+    removeFavorite = async () => {
+        const key = `favorite-${this.state.badge._id}`;
+        await Storage.instance.remove(key);
+        this.setState({isFavorite: false});
+    };
+
     render() {
-        const { badge } = this.state;
+        const { badge, isFavorite } = this.state;
         return (
             <View style={styles.container}>
                 <View style={styles.badge}>
@@ -30,6 +71,17 @@ class BadgesDetail extends React.Component {
                         style={styles.profileImage}
                         source={{ uri: `${badge.profile_picture_url}` }}
                     />
+                    <TouchableOpacity
+                        style = {styles.favorite}
+                        onPress={this.toggleFavorite}>
+                        <Image 
+                            source={
+                                isFavorite
+                                    ? require('../../assets/isFavorite.png')
+                                    : require('../../assets/notFavorite.png')
+                            }
+                        />
+                    </TouchableOpacity>
                     <View style={styles.userInfo}>
                         <Text style={styles.name}>{badge.name}</Text>
                         <Text style={styles.age}>{badge.age}</Text>
@@ -90,6 +142,12 @@ const styles = StyleSheet.create({
         left: '22%',
 
     },
+    favorite: {
+        position: 'absolute',
+        top: 290,
+        right: 40,
+    },
+
     userInfo: {
         flexDirection: 'row',
         marginTop: 110,
