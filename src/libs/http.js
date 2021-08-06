@@ -1,4 +1,4 @@
-const BASE_URL = "https://db-example-md.herokuapp.com";
+import URLS from './url';
 
 class Http {
     static instance = new Http();
@@ -6,7 +6,7 @@ class Http {
 
     get_all = async () => {
         try {
-            let request = await fetch(`${BASE_URL}/all/`);
+            let request = await fetch(`${URLS.badges_url}/all/`);
             let response = await request.json();
             return response;
         } catch (err) {
@@ -17,7 +17,7 @@ class Http {
     
     get = async badgeId => {
         try {
-            let request = await fetch(`${BASE_URL}/_id:${badgeId}/`);
+            let request = await fetch(`${URLS.badges_url}/_id:${badgeId}/`);
             let response = await request.json();
             return response;
         } catch (err) {
@@ -27,7 +27,7 @@ class Http {
     };
     post = async badge => {
         try {
-            let request = await fetch(`${BASE_URL}/new/`,{
+            let request = await fetch(`${URLS.badges_url}/new/`,{
             method: 'POST',
             body: JSON.stringify(badge),
         });
@@ -41,7 +41,7 @@ class Http {
     };
     put = async (badgeId, body) => {
         try {
-            let request = await fetch(`${BASE_URL}/_id:${badgeId}/`,{
+            let request = await fetch(`${URLS.badges_url}/_id:${badgeId}/`,{
             method: 'PUT',
             headers:{
                 'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ class Http {
     };
     remove = async badgeId => {
         try {
-            let request = await fetch(`${BASE_URL}/_id:${badgeId}/`,{
+            let request = await fetch(`${URLS.badges_url}/_id:${badgeId}/`,{
                 method: 'DELETE',
             });
             let response = await request.json();

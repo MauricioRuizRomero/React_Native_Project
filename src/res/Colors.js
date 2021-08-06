@@ -3,6 +3,7 @@ const Colors = {
     charade: '#272c35',
     zircon: '#3a4049',
     white: '#efefef',
+    green: '#43FF0D'
 
 };
 

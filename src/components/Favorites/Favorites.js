@@ -6,10 +6,12 @@ import {
     StyleSheet,
     StatusBar,
 } from 'react-native'
-import Colors from '../../res/Colors.js'
-import Storage from '../../libs/storage'
+import Loader from '../Generics/Loader';
+import Colors from '../../res/Colors.js';
+import Storage from '../../libs/storage';
 import exampleStyles from '../../styles/example.js'
 import BadgesItem from '../BadgesScreen/BadgesItem.js';
+
 
 
 class Favorites extends React.Component {
@@ -26,12 +28,13 @@ class Favorites extends React.Component {
     
 
     getFavorites = async () => {
+        this.setState({loading: true, badges: undefined});
         try{
             const allKeys = await Storage.instance.getAllKeys();
             const keys = allKeys.filter( key => key.includes('favorite-'));
             const favs = await Storage.instance.multiGet(keys);
             const favorites = favs.map(fav => JSON.parse(fav[1]));
-            this.setState({badges: favorites});
+            this.setState({loading: false, badges: favorites});
         } catch (err){
             console.log('get favorites err', err);
         }
@@ -55,6 +58,7 @@ class Favorites extends React.Component {
         const {badges, loading} = this.state;
 
         if(loading === true && !badges){
+            <Loader />;
             <View 
             style={[
                 styles.favoritesContainer, 
