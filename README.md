@@ -17,3 +17,5 @@ Created with the help of [React Native App Creation Recipe](https://github.com/a
 Run the following command to initialize a project.
 
 `npx react-native init MyApp --template react-native-project-template`
+To start emulating the phone app
+`npm run Myapp`
