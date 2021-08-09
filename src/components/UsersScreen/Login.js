@@ -55,6 +55,10 @@ class Login extends React.Component {
 		}
 	};
 
+	handleSignup= () =>{
+		this.navigation.navigate('Signup');
+	}
+
 	render() {
 		const { isPasswordVisible, loading, error } = this.state;
 		return (
