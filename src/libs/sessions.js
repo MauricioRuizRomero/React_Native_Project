@@ -2,62 +2,66 @@ import URLS from './url';
 import Storage from "./storage";
 
 
-class UserSesion {
-    static instance = new UserSesion();
+class UserSession {
+    static instance = new UserSession();
 
     login = async body => {
-        try{
-            let request = await fetch (`$URLS.users_url}/users/login/`,{
+        try {
+            let request = await fetch(`${URLS.users_url}/users/login/`, {
                 method: 'POST',
-                headers:{
+                headers: {
                     'Content-Type': 'application/json',
-                    Accept: 'application/json',
                 },
                 body: JSON.stringify(body),
             });
-            let response = request.json();
-            let key = `token-${response.user.username}`;
-            await Storage.instance.store(key, response.token);
-            return response.user.username; 
-        }catch(err){
+            let response = await request.json();
+            try{
+                let key = `token-${response.user.username}`;
+                await Storage.instance.store(key, response.token);
+                return response.user.username;    
+            }catch(err){
+                return response;
+            }
+            
+        } catch (err) {
             console.log('Login err', err)
             throw Error(err);
         }
     };
 
-    logout = async => {
-        try{
+    logout = async key => {
+        try {
             await Storage.instance.remove(key);
             return true;
-        }catch(err){
+        } catch (err) {
             console.log('Logout err', err);
             return false;
         }
     };
 
     signup = async body => {
-        try{
-            await fetch(`${URLS.users_url}/users/signup/`,{
+        try {
+            await fetch(`${URLS.users_url}/users/signup/`, {
                 method: 'POST',
-                headers:{
+                headers: {
                     'Content-Type': 'application/json',
                     Accept: 'application/json',
                 },
                 body: JSON.stringify(body),
             });
-        }catch(err){
+        } catch (err) {
             console.log('Sign up error', err);
             throw Error(err);
         }
     };
-    
+
     getToken = async key => {
-        try{
+        try {
             return await Storage.instance.get(key);
-        } catch (err){
+        } catch (err) {
             console.log('Get token error', err);
         }
     };
 }
 
-export default UserSesion;
+export default UserSession;
